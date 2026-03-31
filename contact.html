@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/middle.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <style>
+    .contact-form label { cursor: pointer; transition: color 0.18s; }
+    .contact-form label:hover { color: #57984C; }
+
+    .contact-form .form-group.has-error label { color: #c0392b; }
+    .contact-form .form-group.has-error .form-control,
+    .contact-form .form-group.has-error .form-select {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 1px #c0392b;
+    }
+    .contact-form .field-error {
+      display: none;
+      font-size: 11px;
+      color: #c0392b;
+      font-family: 'Open Sans', sans-serif;
+      margin-top: 4px;
+    }
+    .contact-form .form-group.has-error .field-error { display: block; }
+
+    #form-success {
+      display: none;
+      background: #57984C;
+      color: #fff;
+      font-family: 'Roboto Slab', serif;
+      font-size: 15px;
+      padding: 16px 24px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+<header class="site-header product-page-header">
+  <div class="header-bg product-header-bg"></div>
+  <div class="header-inner">
+    <div class="container">
+      <div class="top-row">
+        <a href="index.html" class="logo-link">
+          <img src="images/7.png" alt="Agridera Seeds & Agriculture" class="logo-img product-logo" />
+        </a>
+        <div class="right-col">
+          <form class="search-form" action="#" method="get">
+            <input type="text" name="q" placeholder="Search" />
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+          <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="#">Company Profile</a>
+            <a href="products.html">Products</a>
+            <a href="#">Services</a>
+            <a href="#">R &amp; D</a>
+            <a href="contact.html" class="active">Contact</a>
+          </nav>
+          <button class="hamburger-btn" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="mobile-nav-panel">
+      <a href="index.html">Home</a>
+      <a href="#">Company Profile</a>
+      <a href="products.html">Products</a>
+      <a href="#">Services</a>
+      <a href="#">R &amp; D</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="contact-hero-banner">
+  <img src="images/c1.jpg" alt="Agridera Fields" class="contact-hero-img">
+</div>
+
+<main class="contact-page-main">
+  <div class="container contact-container">
+    <h1 class="contact-title">Contact us</h1>
+    <div class="dots-decor contact-dots">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div id="form-success">
+      <i class="fa fa-check-circle"></i>&nbsp; Your message has been sent! We will get back to you shortly.
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="row custom-gx">
+
+        <div class="col-md-5">
+
+          <div class="form-group" id="grp-name">
+            <label for="f-name">Name *</label>
+            <input type="text" id="f-name" class="form-control" autocomplete="name">
+            <span class="field-error">Please enter your name.</span>
+          </div>
+
+          <div class="form-group" id="grp-company">
+            <label for="f-company">Company Name *</label>
+            <input type="text" id="f-company" class="form-control" autocomplete="organization">
+            <span class="field-error">Please enter your company name.</span>
+          </div>
+
+          <div class="form-group" id="grp-position">
+            <label for="f-position">Position *</label>
+            <input type="text" id="f-position" class="form-control">
+            <span class="field-error">Please enter your position.</span>
+          </div>
+
+          <div class="form-group" id="grp-city">
+            <label for="f-city">City *</label>
+            <input type="text" id="f-city" class="form-control" autocomplete="address-level2">
+            <span class="field-error">Please enter your city.</span>
+          </div>
+
+          <div class="form-group" id="grp-country">
+            <label for="f-country">Country *</label>
+            <input type="text" id="f-country" class="form-control" autocomplete="country-name">
+            <span class="field-error">Please enter your country.</span>
+          </div>
+
+          <div class="form-group" id="grp-tel">
+            <label for="f-tel">Telephone *</label>
+            <input type="tel" id="f-tel" class="form-control" autocomplete="tel">
+            <span class="field-error">Please enter a valid phone number (digits, +, spaces).</span>
+          </div>
+
+          <div class="form-group" id="grp-email">
+            <label for="f-email">Email *</label>
+            <input type="email" id="f-email" class="form-control" autocomplete="email">
+            <span class="field-error">Please enter a valid email address.</span>
+          </div>
+
+        </div>
+
+        <div class="col-md-7">
+
+          <div class="form-group" id="grp-role">
+            <label for="f-role">You are a *</label>
+            <select id="f-role" class="form-select">
+              <option value="">— please select —</option>
+              <option value="seed producer">seed producer</option>
+              <option value="distributor">distributor</option>
+              <option value="farmer">farmer</option>
+              <option value="other">other</option>
+            </select>
+            <span class="field-error">Please select your role.</span>
+          </div>
+
+          <div class="form-group" id="grp-other">
+            <label for="f-other">If other, please specify *</label>
+            <input type="text" id="f-other" class="form-control">
+            <span class="field-error">Please specify your role.</span>
+          </div>
+
+          <div class="form-group" id="grp-interest">
+            <label for="f-interest">You are interested in *</label>
+            <textarea id="f-interest" class="form-control interested-textarea"></textarea>
+            <span class="field-error">Please describe what you are interested in.</span>
+          </div>
+
+          <div class="form-group captcha-container" id="grp-captcha">
+            <label for="f-captcha">Please type this code *</label>
+            <div class="captcha-row">
+              <img src="images/c2.png" alt="Captcha" class="captcha-img">
+              <input type="text" id="f-captcha" class="form-control captcha-input">
+              <button type="submit" class="btn-send-message">Send Message</button>
+            </div>
+            <span class="field-error">Incorrect code. Please try again.</span>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="address-section">
+    <h3 class="address-title">Our Address</h3>
+    <p class="address-details">
+      AGRIDERA Seeds &amp; Agriculture Ltd.<br>
+      P.O Box 103,<br>
+      Gedera 70750, Israel.<br>
+      Telephone: <a href="tel:+97289449222" class="text-green" style="text-decoration:none;">+972 8 944 9222</a>
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <nav class="footer-nav">
+        <a href="#">Profile</a>
+        <a href="#">Management</a>
+        <a href="products.html">Products</a>
+        <a href="#">R&amp;D</a>
+        <a href="#">Links</a>
+        <a href="#">Sitemap</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>Agridera Seeds &amp; Agriculture Ltd. &copy; 2020</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/mobile-menu.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  var CAPTCHA_CODE = '7CJ3';
+
+  function grp(id) { return document.getElementById('grp-' + id); }
+  function fld(id) { return document.getElementById('f-' + id); }
+
+  function setError(id, show) {
+    var g = grp(id);
+    if (g) g.classList.toggle('has-error', show);
+  }
+
+  ['name','company','position','city','country','tel','email','role','other','interest','captcha']
+    .forEach(function (id) {
+      var el = fld(id);
+      if (!el) return;
+      el.addEventListener('input', function () { setError(id, false); });
+      el.addEventListener('change', function () { setError(id, false); });
+    });
+
+  fld('role').addEventListener('change', function () {
+    var grpOther = grp('other');
+    var lbl = grpOther.querySelector('label');
+    if (this.value === 'other') {
+      lbl.textContent = 'If other, please specify *';
+    } else {
+      lbl.textContent = 'If other, please specify';
+      setError('other', false);
+    }
+  });
+
+  function validateForm() {
+    var ok = true;
+
+    if (!fld('name').value.trim()) {
+      setError('name', true); ok = false;
+    }
+
+    if (!fld('company').value.trim()) {
+      setError('company', true); ok = false;
+    }
+
+    if (!fld('position').value.trim()) {
+      setError('position', true); ok = false;
+    }
+
+    if (!fld('city').value.trim()) {
+      setError('city', true); ok = false;
+    }
+
+    if (!fld('country').value.trim()) {
+      setError('country', true); ok = false;
+    }
+
+    var tel = fld('tel').value.trim();
+    if (!tel || !/^[+\d\s\-()]{6,25}$/.test(tel)) {
+      setError('tel', true); ok = false;
+    }
+
+    var email = fld('email').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('email', true); ok = false;
+    }
+
+    if (!fld('role').value) {
+      setError('role', true); ok = false;
+    }
+
+    if (fld('role').value === 'other' && !fld('other').value.trim()) {
+      setError('other', true); ok = false;
+    }
+
+    if (!fld('interest').value.trim()) {
+      setError('interest', true); ok = false;
+    }
+
+    var cap = fld('captcha').value.trim();
+    if (cap !== CAPTCHA_CODE) {
+      setError('captcha', true); ok = false;
+    }
+
+    return ok;
+  }
+
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      var first = document.querySelector('.form-group.has-error');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    this.reset();
+    grp('other').querySelector('label').textContent = 'If other, please specify';
+
+    var banner = document.getElementById('form-success');
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function () { banner.style.display = 'none'; }, 6000);
+  });
+})();
+</script>
+</body>
+</html>

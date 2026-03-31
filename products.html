@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrots</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/middle.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    .product-content-section,
+    .product-grid-section,
+    .product-notice-bar-wrap {
+      background: #FFF3E6 !important;
+    }
+    .product-notice-bar-inner {
+      background: rgba(232, 119, 34, 0.45) !important;
+    }
+    .product-item-img-wrap {
+      height: 200px;
+      overflow: hidden;
+    }
+    .product-item-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header product-page-header">
+  <div class="header-bg product-header-bg"></div>
+  <div class="header-inner">
+    <div class="container">
+      <div class="top-row">
+        <a href="index.html" class="logo-link">
+          <img src="images/7.png" alt="Agridera Seeds & Agriculture" class="logo-img product-logo" />
+        </a>
+        <div class="right-col">
+          <form class="search-form" action="#" method="get">
+            <input type="text" name="q" placeholder="Search" />
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+          <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="#">Company Profile</a>
+            <a href="products.html" class="active">Products</a>
+            <a href="#">Services</a>
+            <a href="#">R &amp; D</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+          <button class="hamburger-btn" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="mobile-nav-panel">
+      <a href="index.html">Home</a>
+      <a href="#">Company Profile</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="#">Services</a>
+      <a href="#">R &amp; D</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="product-hero">
+  <img src="img/mmain.jpg" alt="Agridera Carrot Field" class="product-hero-photo" />
+</section>
+
+<article>
+  <section class="product-content-section">
+    <div class="container">
+
+      <h2 class="product-main-title">Agridera Fresh Market Carrot Hybrids</h2>
+      <div class="dots-decor product-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="product-text-block">
+        <p>
+          Agridera aims to be one of the world's leading companies in the breeding, production, and
+          marketing of carrot seeds. <strong>We invest intensively in research and development to
+          provide solutions to growers and consumers in numerous countries around the world.</strong><br>
+          In particular, we breed improved disease-resistant cultivars adapted to different markets globally.
+        </p>
+        <p>
+          Currently, emphasis is placed on combining resistance to Alternaria Leaf Blight and
+          Cavity Spot with other soil-borne diseases into superior carrot breeding lines and hybrids.
+          Comparative efforts are also undertaken to develop varieties resistant to root-knot nematodes.
+        </p>
+        <p>
+          In terms of horticultural traits, breeding focuses on root shape, uniform color, core size,
+          sweetness, firmness, crack resistance, shelf life, and high/low temperature adaptation.
+          Varieties range from Nantes, Chantenay, Danvers, Imperator, and Paris Market types.
+        </p>
+
+        <div class="product-highlight-box">
+          <p>
+            Agridera Carrot breeding programs focus on three main segments: Fresh Market Carrots,
+            Processing Carrots, and Specialty / Baby Carrots.
+          </p>
+        </div>
+      </div>
+
+      <div class="breeding-programs">
+        <div class="row g-0">
+
+          <div class="col-12 col-md-4">
+            <div class="bp-card">
+              <h3 class="bp-title">Fresh Market Carrot Program</h3>
+              <hr class="bp-divider" />
+              <p class="bp-desc">
+                <strong>Aimed at European and Middle Eastern markets.</strong>
+                Focus on Nantes and Chantenay types with excellent color uniformity,
+                high sugar content, and resistances to Alternaria and Cavity Spot.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="bp-card">
+              <h3 class="bp-title">Processing Carrot Program</h3>
+              <hr class="bp-divider" />
+              <p class="bp-desc">
+                <strong>For industrial processing in Northern and Eastern Europe.</strong>
+                Imperator and Danvers types with high dry matter content,
+                deep orange color, strong vigor, and excellent post-harvest shelf life.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="bp-card">
+              <h3 class="bp-title">Specialty &amp; Baby Carrot Program</h3>
+              <hr class="bp-divider" />
+              <p class="bp-desc">
+                <strong>For premium and gourmet markets worldwide.</strong>
+                Paris Market round types and mini Nantes for containers, raised beds, and
+                specialty retail. High sweetness, tender flesh, and attractive appearance.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="product-notice-bar-wrap">
+    <div class="container">
+      <div class="product-notice-bar-inner">
+        <p>Agridera operates through international and local distributers around the world.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="product-grid-section">
+    <div class="container">
+      <div class="row" v-if="products">
+        <div class="col-12 col-sm-6 col-md-4" v-for="p in products">
+          <div class="product-item">
+            <div class="product-item-img-wrap">
+              <a :href="'carrot-one.html#'+p.id">
+                <img :src="'img/'+p.image" :alt="p.title" class="product-item-img" />
+              </a>
+            </div>
+            <div class="product-item-info">
+              <a :href="'carrot-one.html#'+p.id" style="text-decoration:none; color:inherit;">
+                <span class="product-item-code">{{ p.title }}</span>
+                <span class="product-item-name">{{ p.short_text }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <nav class="footer-nav">
+        <a href="#">Profile</a>
+        <a href="#">Management</a>
+        <a href="products.html">Products</a>
+        <a href="#">R&amp;D</a>
+        <a href="#">Links</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>Agridera Seeds &amp; Agriculture Ltd. &copy; 2020</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/mobile-menu.js"></script>
+</body>
+</html>

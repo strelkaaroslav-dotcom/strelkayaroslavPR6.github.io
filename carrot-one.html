@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrot One</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/middle.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    .cart-btn-wrap {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-add-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: #E87722;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-add-cart:hover {
+      background: #c4621a;
+      color: #fff;
+      text-decoration: none;
+    }
+    .btn-go-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: #57984C;
+      color: #fff;
+      border-radius: 30px;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-go-cart:hover {
+      background: #467b3c;
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header product-page-header carrot-header">
+  <div class="header-bg product-header-bg"></div>
+  <div class="header-inner">
+    <div class="container">
+      <div class="top-row">
+        <a href="index.html" class="logo-link">
+          <img src="images/7.png" alt="Agridera Seeds & Agriculture" class="logo-img product-logo" />
+        </a>
+        <div class="right-col">
+          <form class="search-form" action="#" method="get">
+            <input type="text" name="q" placeholder="Search" />
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+          <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="#">Company Profile</a>
+            <a href="products.html" class="active">Products</a>
+            <a href="#">Services</a>
+            <a href="#">R &amp; D</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+          <button class="hamburger-btn" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="mobile-nav-panel">
+      <a href="index.html">Home</a>
+      <a href="#">Company Profile</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="#">Services</a>
+      <a href="#">R &amp; D</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<article>
+  <main class="pd-main">
+    <div class="pd-bg-watermark" style="display:none;">
+      <img src="images/t11.png" alt="" class="pd-watermark-img" aria-hidden="true" />
+    </div>
+
+    <div class="container pd-container">
+
+      <a href="products.html" class="pd-back-link">
+        <span class="pd-back-arrow">&#8592;</span> Return to all carrots
+      </a>
+
+      <div class="row pd-top-row" v-if="product.id">
+
+        <div class="col-12 col-lg-6 pd-left-col">
+
+          <h1 class="pd-title-code">{{ product.title }}</h1>
+          <h2 class="pd-title-name">Carrot Hybrid Variety</h2>
+
+          <div class="dots-decor pd-dots">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+
+          <div class="pd-badge-row">
+            <p class="pd-badge-text">{{ product.short_text }}</p>
+          </div>
+
+          <div class="pd-chars">
+            <h3 class="pd-chars-heading">DESCRIPTION</h3>
+            <div class="pd-char-block pd-resistance">
+              <p class="pd-char-value">{{ product.desc }}</p>
+            </div>
+          </div>
+
+          <div class="cart-btn-wrap">
+            <a class="btn-add-cart" href="#" @click.prevent="addToCart(product.id)" v-if="!btnVisible">
+              <i class="fas fa-cart-plus"></i> Add to cart
+            </a>
+            <a class="btn-go-cart" href="contact.html" v-if="btnVisible">
+              <i class="fas fa-shopping-cart"></i> Go to cart
+            </a>
+          </div>
+
+        </div>
+
+        <div class="col-12 col-lg-6 pd-right-col">
+          <div class="pd-photo-wrap">
+            <img :src="'img/'+product.image" :alt="product.title" class="pd-photo" />
+          </div>
+        </div>
+
+      </div>
+
+      <div v-if="!product.id" style="padding: 40px 0; text-align:center;">
+        <p style="font-size:18px; color:#666;">Please select a carrot variety from the <a href="products.html">products page</a>.</p>
+      </div>
+
+    </div>
+  </main>
+</article>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <nav class="footer-nav">
+        <a href="#">Profile</a>
+        <a href="#">Management</a>
+        <a href="products.html">Products</a>
+        <a href="#">R&amp;D</a>
+        <a href="#">Links</a>
+        <a href="#">Sitemap</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>Agridera Seeds &amp; Agriculture Ltd. &copy; 2020</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/mobile-menu.js"></script>
+</body>
+</html>
