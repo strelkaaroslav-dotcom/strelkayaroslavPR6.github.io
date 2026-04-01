@@ -17,36 +17,79 @@
   <link rel="stylesheet" href="css/responsive.css" />
 
   <style>
+    .cart-section {
+      margin-bottom: 32px;
+    }
+    .cart-section h2 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 20px;
+      color: #2d5a27;
+      margin-bottom: 12px;
+    }
+    .cart-table th {
+      background: #57984C;
+      color: #fff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .cart-table td {
+      vertical-align: middle;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+    }
+    .cart-table .cart-thumb {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .cart-remove-btn {
+      background: none;
+      border: none;
+      color: #c0392b;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 6px;
+      transition: color 0.15s;
+    }
+    .cart-remove-btn:hover { color: #8e1a10; }
+
     .contact-form label { cursor: pointer; transition: color 0.18s; }
     .contact-form label:hover { color: #57984C; }
 
-    .contact-form .form-group.has-error label { color: #c0392b; }
-    .contact-form .form-group.has-error .form-control,
-    .contact-form .form-group.has-error .form-select {
-      border-color: #c0392b;
-      box-shadow: 0 0 0 1px #c0392b;
-    }
-    .contact-form .field-error {
-      display: none;
-      font-size: 11px;
-      color: #c0392b;
+    .order-confirmation {
+      background: #f4faf3;
+      border: 1px solid #57984C;
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
       font-family: 'Open Sans', sans-serif;
-      margin-top: 4px;
     }
-    .contact-form .form-group.has-error .field-error { display: block; }
-
-    #form-success {
-      display: none;
-      background: #57984C;
-      color: #fff;
+    .order-confirmation h2 {
       font-family: 'Roboto Slab', serif;
-      font-size: 15px;
-      padding: 16px 24px;
-      border-radius: 6px;
-      margin-bottom: 24px;
-      text-align: center;
+      color: #2d5a27;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .order-confirmation .check-icon {
+      color: #57984C;
+      font-size: 36px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .order-confirmation table th {
+      width: 160px;
+      font-weight: 600;
+      color: #555;
+      padding-right: 16px;
+    }
+    .order-confirmation table td {
+      color: #222;
     }
   </style>
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="js/main.js" defer></script>
 </head>
@@ -94,105 +137,196 @@
   <img src="images/c1.jpg" alt="Agridera Fields" class="contact-hero-img">
 </div>
 
-<main class="contact-page-main">
+<article class="contact-page-main">
   <div class="container contact-container">
+
     <h1 class="contact-title">Contact us</h1>
     <div class="dots-decor contact-dots">
       <span></span><span></span><span></span><span></span><span></span>
     </div>
-
-    <div id="form-success">
-      <i class="fa fa-check-circle"></i>&nbsp; Your message has been sent! We will get back to you shortly.
+    <div class="cart-section" v-if="cart.length > 0">
+      <h2>Your selected products</h2>
+      <table class="table table-bordered cart-table">
+        <thead>
+          <tr>
+            <th style="width:70px;">Image</th>
+            <th>Name</th>
+            <th>Short description</th>
+            <th style="width:50px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in cart" :key="item.id">
+            <td>
+              <img :src="'img/' + item.image" :alt="item.title" class="cart-thumb">
+            </td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.short_text }}</td>
+            <td>
+              <button class="cart-remove-btn" @click="removeFromCart(item.id)" title="Remove">&times;</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="order-confirmation" v-if="orderSubmitted">
+      <i class="fa fa-check-circle check-icon"></i>
+      <h2>Thank you! Your message has been sent.</h2>
+      <p style="margin-bottom:20px;color:#555;">Here is a summary of your submission:</p>
+      <table>
+        <tbody>
+          <tr><th>Name:</th>        <td>{{ contactFields.name }}</td></tr>
+          <tr><th>Company:</th>     <td>{{ contactFields.company }}</td></tr>
+          <tr><th>Position:</th>    <td>{{ contactFields.position }}</td></tr>
+          <tr><th>City:</th>        <td>{{ contactFields.city }}</td></tr>
+          <tr><th>Country:</th>     <td>{{ contactFields.country }}</td></tr>
+          <tr><th>Telephone:</th>   <td>{{ contactFields.tel }}</td></tr>
+          <tr><th>Email:</th>       <td>{{ contactFields.email }}</td></tr>
+          <tr><th>You are a:</th>   <td>{{ contactFields.role }}</td></tr>
+          <tr v-if="contactFields.role === 'other'">
+            <th>Specify:</th><td>{{ contactFields.other }}</td>
+          </tr>
+          <tr><th>Interested in:</th><td>{{ contactFields.interest }}</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <form class="contact-form" id="contactForm" novalidate>
+    <form class="contact-form"
+          id="contactForm"
+          @submit.prevent="makeOrder"
+          v-if="!orderSubmitted">
+
       <div class="row custom-gx">
 
         <div class="col-md-5">
 
-          <div class="form-group" id="grp-name">
+          <div class="form-group">
             <label for="f-name">Name *</label>
-            <input type="text" id="f-name" class="form-control" autocomplete="name">
-            <span class="field-error">Please enter your name.</span>
+            <input type="text"
+                   id="f-name"
+                   class="form-control"
+                   autocomplete="name"
+                   required
+                   v-model="contactFields.name">
           </div>
 
-          <div class="form-group" id="grp-company">
+          <div class="form-group">
             <label for="f-company">Company Name *</label>
-            <input type="text" id="f-company" class="form-control" autocomplete="organization">
-            <span class="field-error">Please enter your company name.</span>
+            <input type="text"
+                   id="f-company"
+                   class="form-control"
+                   autocomplete="organization"
+                   required
+                   v-model="contactFields.company">
           </div>
 
-          <div class="form-group" id="grp-position">
+          <div class="form-group">
             <label for="f-position">Position *</label>
-            <input type="text" id="f-position" class="form-control">
-            <span class="field-error">Please enter your position.</span>
+            <input type="text"
+                   id="f-position"
+                   class="form-control"
+                   required
+                   v-model="contactFields.position">
           </div>
 
-          <div class="form-group" id="grp-city">
+          <div class="form-group">
             <label for="f-city">City *</label>
-            <input type="text" id="f-city" class="form-control" autocomplete="address-level2">
-            <span class="field-error">Please enter your city.</span>
+            <input type="text"
+                   id="f-city"
+                   class="form-control"
+                   autocomplete="address-level2"
+                   required
+                   v-model="contactFields.city">
           </div>
 
-          <div class="form-group" id="grp-country">
+          <div class="form-group">
             <label for="f-country">Country *</label>
-            <input type="text" id="f-country" class="form-control" autocomplete="country-name">
-            <span class="field-error">Please enter your country.</span>
+            <input type="text"
+                   id="f-country"
+                   class="form-control"
+                   autocomplete="country-name"
+                   required
+                   v-model="contactFields.country">
           </div>
 
-          <div class="form-group" id="grp-tel">
+          <div class="form-group">
             <label for="f-tel">Telephone *</label>
-            <input type="tel" id="f-tel" class="form-control" autocomplete="tel">
-            <span class="field-error">Please enter a valid phone number (digits, +, spaces).</span>
+            <input type="tel"
+                   id="f-tel"
+                   class="form-control"
+                   autocomplete="tel"
+                   required
+                   pattern="\+[0-9]{7,}"
+                   title="Please enter a phone number starting with + and at least 7 digits (e.g. +380671234567)"
+                   v-model="contactFields.tel">
           </div>
 
-          <div class="form-group" id="grp-email">
+          <div class="form-group">
             <label for="f-email">Email *</label>
-            <input type="email" id="f-email" class="form-control" autocomplete="email">
-            <span class="field-error">Please enter a valid email address.</span>
+            <input type="email"
+                   id="f-email"
+                   class="form-control"
+                   autocomplete="email"
+                   required
+                   v-model="contactFields.email">
           </div>
 
         </div>
 
         <div class="col-md-7">
 
-          <div class="form-group" id="grp-role">
+          <div class="form-group">
             <label for="f-role">You are a *</label>
-            <select id="f-role" class="form-select">
+            <select id="f-role"
+                    class="form-select"
+                    required
+                    v-model="contactFields.role">
               <option value="">— please select —</option>
               <option value="seed producer">seed producer</option>
               <option value="distributor">distributor</option>
               <option value="farmer">farmer</option>
               <option value="other">other</option>
             </select>
-            <span class="field-error">Please select your role.</span>
           </div>
 
-          <div class="form-group" id="grp-other">
+          <div class="form-group" v-show="contactFields.role === 'other'">
             <label for="f-other">If other, please specify *</label>
-            <input type="text" id="f-other" class="form-control">
-            <span class="field-error">Please specify your role.</span>
+            <input type="text"
+                   id="f-other"
+                   class="form-control"
+                   v-model="contactFields.other">
           </div>
 
-          <div class="form-group" id="grp-interest">
+          <div class="form-group">
             <label for="f-interest">You are interested in *</label>
-            <textarea id="f-interest" class="form-control interested-textarea"></textarea>
-            <span class="field-error">Please describe what you are interested in.</span>
+            <textarea id="f-interest"
+                      class="form-control interested-textarea"
+                      required
+                      v-model="contactFields.interest"></textarea>
           </div>
 
-          <div class="form-group captcha-container" id="grp-captcha">
+          <div class="form-group captcha-container">
             <label for="f-captcha">Please type this code *</label>
             <div class="captcha-row">
               <img src="images/c2.png" alt="Captcha" class="captcha-img">
-              <input type="text" id="f-captcha" class="form-control captcha-input">
+              <input type="text"
+                     id="f-captcha"
+                     class="form-control captcha-input"
+                     required
+                     placeholder="Please enter the code"
+                     v-model="contactFields.captcha">
               <button type="submit" class="btn-send-message">Send Message</button>
             </div>
-            <span class="field-error">Incorrect code. Please try again.</span>
+            <span class="field-error" v-if="captchaError" style="display:block;color:#c0392b;font-size:12px;">
+              Incorrect code. Please enter the code exactly as shown.
+            </span>
           </div>
 
         </div>
       </div>
+
     </form>
+
   </div>
 
   <div class="address-section">
@@ -204,7 +338,7 @@
       Telephone: <a href="tel:+97289449222" class="text-green" style="text-decoration:none;">+972 8 944 9222</a>
     </p>
   </div>
-</main>
+</article>
 
 <footer class="site-footer">
   <div class="container">
@@ -235,110 +369,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/mobile-menu.js"></script>
 
-<script>
-(function () {
-  'use strict';
-
-  var CAPTCHA_CODE = '7CJ3';
-
-  function grp(id) { return document.getElementById('grp-' + id); }
-  function fld(id) { return document.getElementById('f-' + id); }
-
-  function setError(id, show) {
-    var g = grp(id);
-    if (g) g.classList.toggle('has-error', show);
-  }
-
-  ['name','company','position','city','country','tel','email','role','other','interest','captcha']
-    .forEach(function (id) {
-      var el = fld(id);
-      if (!el) return;
-      el.addEventListener('input', function () { setError(id, false); });
-      el.addEventListener('change', function () { setError(id, false); });
-    });
-
-  fld('role').addEventListener('change', function () {
-    var grpOther = grp('other');
-    var lbl = grpOther.querySelector('label');
-    if (this.value === 'other') {
-      lbl.textContent = 'If other, please specify *';
-    } else {
-      lbl.textContent = 'If other, please specify';
-      setError('other', false);
-    }
-  });
-
-  function validateForm() {
-    var ok = true;
-
-    if (!fld('name').value.trim()) {
-      setError('name', true); ok = false;
-    }
-
-    if (!fld('company').value.trim()) {
-      setError('company', true); ok = false;
-    }
-
-    if (!fld('position').value.trim()) {
-      setError('position', true); ok = false;
-    }
-
-    if (!fld('city').value.trim()) {
-      setError('city', true); ok = false;
-    }
-
-    if (!fld('country').value.trim()) {
-      setError('country', true); ok = false;
-    }
-
-    var tel = fld('tel').value.trim();
-    if (!tel || !/^[+\d\s\-()]{6,25}$/.test(tel)) {
-      setError('tel', true); ok = false;
-    }
-
-    var email = fld('email').value.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('email', true); ok = false;
-    }
-
-    if (!fld('role').value) {
-      setError('role', true); ok = false;
-    }
-
-    if (fld('role').value === 'other' && !fld('other').value.trim()) {
-      setError('other', true); ok = false;
-    }
-
-    if (!fld('interest').value.trim()) {
-      setError('interest', true); ok = false;
-    }
-
-    var cap = fld('captcha').value.trim();
-    if (cap !== CAPTCHA_CODE) {
-      setError('captcha', true); ok = false;
-    }
-
-    return ok;
-  }
-
-  document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      var first = document.querySelector('.form-group.has-error');
-      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    this.reset();
-    grp('other').querySelector('label').textContent = 'If other, please specify';
-
-    var banner = document.getElementById('form-success');
-    banner.style.display = 'block';
-    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(function () { banner.style.display = 'none'; }, 6000);
-  });
-})();
-</script>
 </body>
 </html>
