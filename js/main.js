@@ -39,13 +39,36 @@ var app = new Vue({
       }
     ],
     product: {},
-    btnVisible: 0
+    btnVisible: 0,
+
+    cart: [],
+
+    contactFields: {
+      name:     '',
+      company:  '',
+      position: '',
+      city:     '',
+      country:  '',
+      tel:      '',
+      email:    '',
+      role:     '',
+      other:    '',
+      interest: '',
+      captcha:  ''
+    },
+
+    orderSubmitted: false,
+    captchaError: false
   },
+
   mounted: function () {
     this.getProduct();
     this.checkInCart();
+    this.getCart();
   },
+
   methods: {
+
     getProduct: function () {
       if (window.location.hash) {
         var id = window.location.hash.replace('#', '');
@@ -57,6 +80,7 @@ var app = new Vue({
         }
       }
     },
+
     addToCart: function (id) {
       var cart = [];
       if (window.localStorage.getItem('cart')) {
@@ -68,10 +92,55 @@ var app = new Vue({
         this.btnVisible = 1;
       }
     },
+
     checkInCart: function () {
       if (this.product && this.product.id && window.localStorage.getItem('cart') &&
           window.localStorage.getItem('cart').split(',').indexOf(String(this.product.id)) !== -1)
         this.btnVisible = 1;
+    },
+
+    getCart: function () {
+      this.cart = [];
+      var stored = window.localStorage.getItem('cart');
+      if (stored) {
+        var ids = stored.split(',');
+        for (var i = 0; i < this.products.length; i++) {
+          if (ids.indexOf(String(this.products[i].id)) !== -1) {
+            this.cart.push(this.products[i]);
+          }
+        }
+      }
+    },
+
+    removeFromCart: function (id) {
+      this.cart = this.cart.filter(function (item) {
+        return item.id !== id;
+      });
+
+      var stored = window.localStorage.getItem('cart');
+      if (stored) {
+        var ids = stored.split(',').filter(function (i) {
+          return i !== String(id);
+        });
+        if (ids.length > 0) {
+          window.localStorage.setItem('cart', ids.join(','));
+        } else {
+          window.localStorage.removeItem('cart');
+        }
+      }
+    },
+
+    makeOrder: function () {
+      if (this.contactFields.captcha !== '7CJ3') {
+        this.captchaError = true;
+        return;
+      }
+      this.captchaError = false;
+
+      this.orderSubmitted = true;
+
+      this.cart = [];
+      window.localStorage.removeItem('cart');
     }
   }
 });
